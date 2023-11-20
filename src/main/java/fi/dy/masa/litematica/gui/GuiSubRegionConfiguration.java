@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.gui.GuiMainMenu.ButtonListenerChangeMenu;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacement;
 import fi.dy.masa.litematica.schematic.placement.SubRegionPlacement;
@@ -321,14 +321,14 @@ public class GuiSubRegionConfiguration extends GuiBase
             SLICE_TYPE              ("litematica.gui.button.placement_sub.slice_type");
 
             private final String translationKey;
-            @Nullable private final String hoverText;
+             private final String hoverText;
 
             private Type(String translationKey)
             {
                 this(translationKey, null);
             }
 
-            private Type(String translationKey, @Nullable String hoverText)
+            private Type(String translationKey,  String hoverText)
             {
                 this.translationKey = translationKey;
                 this.hoverText = hoverText;

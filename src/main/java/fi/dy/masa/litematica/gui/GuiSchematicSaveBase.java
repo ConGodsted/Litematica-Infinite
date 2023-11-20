@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.malilib.gui.GuiTextFieldGeneric;
 import fi.dy.masa.malilib.gui.Message.MessageType;
@@ -13,7 +13,6 @@ import fi.dy.masa.malilib.gui.widgets.WidgetFileBrowserBase.DirectoryEntryType;
 import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.KeyCodes;
 import fi.dy.masa.malilib.util.StringUtils;
-import net.minecraft.client.util.math.MatrixStack;
 
 public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase implements ISelectionListener<DirectoryEntry>
 {
@@ -21,9 +20,9 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
     protected WidgetCheckBox checkboxIgnoreEntities;
     protected String lastText = "";
     protected String defaultText = "";
-    @Nullable protected final LitematicaSchematic schematic;
+     protected final LitematicaSchematic schematic;
 
-    public GuiSchematicSaveBase(@Nullable LitematicaSchematic schematic)
+    public GuiSchematicSaveBase( LitematicaSchematic schematic)
     {
         super(10, 70);
 
@@ -132,15 +131,15 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
     }
 
     @Override
-    public void drawContents(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void drawContents(int mouseX, int mouseY, float partialTicks)
     {
-        super.drawContents(matrixStack, mouseX, mouseY, partialTicks);
+        super.drawContents(mouseX, mouseY, partialTicks);
 
-        this.textField.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.textField.render(mouseX, mouseY, partialTicks);
     }
 
     @Override
-    public void onSelectionChange(@Nullable DirectoryEntry entry)
+    public void onSelectionChange( DirectoryEntry entry)
     {
         if (entry != null && entry.getType() != DirectoryEntryType.DIRECTORY && entry.getType() != DirectoryEntryType.INVALID)
         {

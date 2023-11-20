@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.render.schematic;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.world.WorldSchematic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -111,7 +111,7 @@ public class ChunkRenderDispatcherSchematic
         this.renderers[this.getChunkIndex(chunkX, chunkY, chunkZ)].setNeedsUpdate(immediate);
     }
 
-    @Nullable
+    
     protected ChunkRendererSchematicVbo getChunkRenderer(BlockPos pos)
     {
         int cx = MathHelper.floorDiv(pos.getX(), 16);

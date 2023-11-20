@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -391,7 +391,7 @@ public class SchematicaSchematic
     private void readEntitiesFromWorld(World world, BlockPos posStart, BlockPos size)
     {
         this.entities.clear();
-        List<Entity> entities = world.getOtherEntities(null, new net.minecraft.util.math.Box(posStart, posStart.add(size)));
+        List<Entity> entities = world.getEntities((Entity) null, new net.minecraft.util.math.Box(posStart, posStart.add(size)));
 
         for (Entity entity : entities)
         {
@@ -421,7 +421,7 @@ public class SchematicaSchematic
         return schematic;
     }
 
-    @Nullable
+    
     public static SchematicaSchematic createFromFile(File file)
     {
         SchematicaSchematic schematic = new SchematicaSchematic();

@@ -1,7 +1,7 @@
 package fi.dy.masa.litematica.gui;
 
 import java.io.File;
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.gui.widgets.WidgetSchematicBrowser;
 import fi.dy.masa.malilib.gui.GuiListBase;
 import fi.dy.masa.malilib.gui.interfaces.ISelectionListener;
@@ -34,7 +34,7 @@ public abstract class GuiSchematicBrowserBase extends GuiListBase<DirectoryEntry
     public abstract File getDefaultDirectory();
 
     @Override
-    @Nullable
+    
     protected ISelectionListener<DirectoryEntry> getSelectionListener()
     {
         return null;

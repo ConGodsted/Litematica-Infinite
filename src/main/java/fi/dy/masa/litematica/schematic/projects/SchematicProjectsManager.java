@@ -1,7 +1,6 @@
 package fi.dy.masa.litematica.schematic.projects;
 
 import java.io.File;
-import javax.annotation.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -19,7 +18,7 @@ public class SchematicProjectsManager
     //private static final Pattern PATTERN_NAME_NUMBER = Pattern.compile("(.*)([0-9]+)$");
     private final MinecraftClient mc = MinecraftClient.getInstance();
 
-    @Nullable
+    
     private SchematicProject currentProject;
 
     public void openSchematicProjectsGui()
@@ -38,7 +37,7 @@ public class SchematicProjectsManager
         }
     }
 
-    @Nullable
+    
     public SchematicProject getCurrentProject()
     {
         return this.currentProject;
@@ -74,7 +73,7 @@ public class SchematicProjectsManager
         return true;
     }
 
-    @Nullable
+    
     public SchematicProject loadProjectFromFile(File projectFile, boolean createPlacement)
     {
         if (projectFile.getName().endsWith(".json") && projectFile.exists() && projectFile.isFile() && projectFile.canRead())

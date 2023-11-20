@@ -1,7 +1,7 @@
 package fi.dy.masa.litematica.mixin;
 
 import java.util.BitSet;
-import javax.annotation.Nullable;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -15,7 +15,7 @@ public interface IMixinBlockModelRenderer
             net.minecraft.util.math.BlockPos pos,
             int[] vertexData,
             net.minecraft.util.math.Direction face,
-            @Nullable float[] box, BitSet flags);
+             float[] box, BitSet flags);
 
     @Invoker("renderQuad")
     public void invokeRenderQuad(

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -56,7 +55,7 @@ public class DataManager implements IDirectoryCache
     private LayerRange renderRange = new LayerRange(SchematicWorldRefresher.INSTANCE);
     private ToolMode operationMode = ToolMode.SCHEMATIC_PLACEMENT;
     private AreaSelectionSimple areaSimple = new AreaSelectionSimple(true);
-    @Nullable
+    
     private MaterialListBase materialList;
 
     private DataManager()
@@ -123,13 +122,13 @@ public class DataManager implements IDirectoryCache
         return getInstance().schematicProjectsManager;
     }
 
-    @Nullable
+    
     public static MaterialListBase getMaterialList()
     {
         return getInstance().materialList;
     }
 
-    public static void setMaterialList(@Nullable MaterialListBase materialList)
+    public static void setMaterialList( MaterialListBase materialList)
     {
         MaterialListBase old = getInstance().materialList;
 
@@ -168,7 +167,7 @@ public class DataManager implements IDirectoryCache
     }
 
     @Override
-    @Nullable
+    
     public File getCurrentDirectoryForContext(String context)
     {
         return LAST_DIRECTORIES.get(context);

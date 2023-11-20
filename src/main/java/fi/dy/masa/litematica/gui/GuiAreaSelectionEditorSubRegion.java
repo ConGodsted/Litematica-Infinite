@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.gui.widgets.WidgetListSelectionSubRegions;
 import fi.dy.masa.litematica.selection.AreaSelection;
 import fi.dy.masa.litematica.selection.Box;
@@ -54,7 +54,7 @@ public class GuiAreaSelectionEditorSubRegion extends GuiAreaSelectionEditorSimpl
     }
 
     @Override
-    @Nullable
+    
     protected Box getBox()
     {
         return this.box;

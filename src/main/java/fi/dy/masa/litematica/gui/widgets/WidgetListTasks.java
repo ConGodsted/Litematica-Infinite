@@ -2,7 +2,7 @@ package fi.dy.masa.litematica.gui.widgets;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.scheduler.ITask;
 import fi.dy.masa.litematica.scheduler.TaskScheduler;
 import fi.dy.masa.malilib.gui.interfaces.ISelectionListener;
@@ -11,7 +11,7 @@ import fi.dy.masa.malilib.gui.widgets.WidgetListBase;
 public class WidgetListTasks extends WidgetListBase<ITask, WidgetTaskEntry>
 {
     public WidgetListTasks(int x, int y, int width, int height,
-            @Nullable ISelectionListener<ITask> selectionListener)
+             ISelectionListener<ITask> selectionListener)
     {
         super(x, y, width, height, selectionListener);
 

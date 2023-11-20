@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableMap;
 import fi.dy.masa.litematica.data.SchematicHolder;
 import fi.dy.masa.litematica.render.infohud.InfoHud;
@@ -25,8 +25,8 @@ public class TaskSaveSchematic extends TaskProcessChunkBase
     private final BlockPos origin;
     private final ImmutableMap<String, Box> subRegions;
     private final Set<UUID> existingEntities = new HashSet<>();
-    @Nullable private final File dir;
-    @Nullable private final String fileName;
+     private final File dir;
+     private final String fileName;
     private final boolean takeEntities;
     private final boolean overrideFile;
 
@@ -35,7 +35,7 @@ public class TaskSaveSchematic extends TaskProcessChunkBase
         this(null, null, schematic, area, takeEntities, false);
     }
 
-    public TaskSaveSchematic(@Nullable File dir, @Nullable String fileName, LitematicaSchematic schematic, AreaSelection area, boolean takeEntities, boolean overrideFile)
+    public TaskSaveSchematic( File dir,  String fileName, LitematicaSchematic schematic, AreaSelection area, boolean takeEntities, boolean overrideFile)
     {
         super("litematica.gui.label.task_name.save_schematic");
 

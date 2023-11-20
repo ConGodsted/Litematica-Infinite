@@ -1,6 +1,5 @@
 package fi.dy.masa.litematica.tool;
 
-import javax.annotation.Nullable;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.block.BlockState;
@@ -24,8 +23,8 @@ public enum ToolMode
     private final boolean usesBlockPrimary;
     private final boolean usesBlockSecondary;
 
-    @Nullable private BlockState blockPrimary;
-    @Nullable private BlockState blockSecondary;
+     private BlockState blockPrimary;
+     private BlockState blockSecondary;
 
     private ToolMode(String unlocName, boolean creativeOnly, boolean usesSchematic)
     {
@@ -66,24 +65,24 @@ public enum ToolMode
         return this.usesBlockSecondary;
     }
 
-    @Nullable
+    
     public BlockState getPrimaryBlock()
     {
         return this.blockPrimary;
     }
 
-    @Nullable
+    
     public BlockState getSecondaryBlock()
     {
         return this.blockSecondary;
     }
 
-    public void setPrimaryBlock(@Nullable BlockState state)
+    public void setPrimaryBlock( BlockState state)
     {
         this.blockPrimary = state;
     }
 
-    public void setSecondaryBlock(@Nullable BlockState state)
+    public void setSecondaryBlock( BlockState state)
     {
         this.blockSecondary = state;
     }

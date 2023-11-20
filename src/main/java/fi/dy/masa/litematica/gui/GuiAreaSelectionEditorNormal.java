@@ -2,7 +2,7 @@ package fi.dy.masa.litematica.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import net.minecraft.util.math.BlockPos;
 import fi.dy.masa.litematica.config.Configs;
 import fi.dy.masa.litematica.config.Hotkeys;
@@ -47,7 +47,7 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
     protected int xNext;
     protected int yNext;
     protected int xOrigin;
-    @Nullable protected String selectionId;
+     protected String selectionId;
 
     public GuiAreaSelectionEditorNormal(AreaSelection selection)
     {
@@ -67,7 +67,7 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
         }
     }
 
-    public void setSelectionId(@Nullable String selectionId)
+    public void setSelectionId( String selectionId)
     {
         this.selectionId = selectionId;
     }
@@ -287,7 +287,7 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
         return this.createButton(x, y, width, null, type);
     }
 
-    protected int createButton(int x, int y, int width, @Nullable Corner corner, ButtonListener.Type type)
+    protected int createButton(int x, int y, int width,  Corner corner, ButtonListener.Type type)
     {
         String label;
         boolean projectsMode = DataManager.getSchematicProjectsManager().hasProjectOpen();
@@ -356,7 +356,7 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
         }
     }
 
-    @Nullable
+    
     protected Box getBox()
     {
         return null;
@@ -418,10 +418,10 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
     {
         private final GuiAreaSelectionEditorNormal parent;
         private final Type type;
-        @Nullable private final Corner corner;
-        @Nullable private final CoordinateType coordinateType;
+         private final Corner corner;
+         private final CoordinateType coordinateType;
 
-        public ButtonListener(Type type, @Nullable Corner corner, @Nullable CoordinateType coordinateType, GuiAreaSelectionEditorNormal parent)
+        public ButtonListener(Type type,  Corner corner,  CoordinateType coordinateType, GuiAreaSelectionEditorNormal parent)
         {
             this.type = type;
             this.corner = corner;
@@ -557,14 +557,14 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
             NUDGE_COORD_Z           ("");
 
             private final String translationKey;
-            @Nullable private final String hoverText;
+             private final String hoverText;
 
             private Type(String translationKey)
             {
                 this(translationKey, null);
             }
 
-            private Type(String translationKey, @Nullable String hoverText)
+            private Type(String translationKey,  String hoverText)
             {
                 this.translationKey = translationKey;
                 this.hoverText = hoverText;

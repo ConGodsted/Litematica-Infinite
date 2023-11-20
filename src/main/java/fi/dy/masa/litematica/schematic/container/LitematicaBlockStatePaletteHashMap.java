@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.schematic.container;
 
-import javax.annotation.Nullable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -23,7 +23,7 @@ public class LitematicaBlockStatePaletteHashMap implements ILitematicaBlockState
     @Override
     public int idFor(BlockState state)
     {
-        int i = this.statePaletteMap.getRawId(state);
+        int i = this.statePaletteMap.getId(state);
 
         if (i == -1)
         {
@@ -39,7 +39,7 @@ public class LitematicaBlockStatePaletteHashMap implements ILitematicaBlockState
     }
 
     @Override
-    @Nullable
+    
     public BlockState getBlockState(int indexKey)
     {
         return this.statePaletteMap.get(indexKey);

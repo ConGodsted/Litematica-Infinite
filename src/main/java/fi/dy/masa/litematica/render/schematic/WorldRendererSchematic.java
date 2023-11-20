@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nullable;
+
 import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockRenderType;
@@ -91,13 +91,13 @@ public class WorldRendererSchematic
     public WorldRendererSchematic(MinecraftClient mc)
     {
         this.mc = mc;
-        this.entityRenderDispatcher = mc.getEntityRenderDispatcher();
+        this.entityRenderDispatcher = mc.getEntityRenderManager();
         this.bufferBuilders = mc.getBufferBuilders();
 
         this.renderChunkFactory = new RenderChunkFactoryVbo();
 
         this.blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-        this.blockModelRenderer = new BlockModelRendererSchematic(mc.getBlockColors());
+        this.blockModelRenderer = new BlockModelRendererSchematic(mc.getBlockColorMap());
     }
 
     public void markNeedsUpdate()
@@ -134,7 +134,7 @@ public class WorldRendererSchematic
         return count;
     }
 
-    public void setWorldAndLoadRenderers(@Nullable WorldSchematic worldSchematic)
+    public void setWorldAndLoadRenderers( WorldSchematic worldSchematic)
     {
         this.lastCameraChunkUpdateX = Double.MIN_VALUE;
         this.lastCameraChunkUpdateY = Double.MIN_VALUE;

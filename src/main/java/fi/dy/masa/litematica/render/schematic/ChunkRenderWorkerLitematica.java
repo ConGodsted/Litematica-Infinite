@@ -3,7 +3,7 @@ package fi.dy.masa.litematica.render.schematic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CancellationException;
-import javax.annotation.Nullable;
+
 import org.apache.logging.log4j.Logger;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.FutureCallback;
@@ -30,7 +30,7 @@ public class ChunkRenderWorkerLitematica implements Runnable
         this(chunkRenderDispatcherIn, null);
     }
 
-    public ChunkRenderWorkerLitematica(ChunkRenderDispatcherLitematica chunkRenderDispatcherIn, @Nullable BufferBuilderCache bufferCache)
+    public ChunkRenderWorkerLitematica(ChunkRenderDispatcherLitematica chunkRenderDispatcherIn,  BufferBuilderCache bufferCache)
     {
         this.shouldRun = true;
         this.chunkRenderDispatcher = chunkRenderDispatcherIn;
@@ -188,7 +188,7 @@ public class ChunkRenderWorkerLitematica implements Runnable
             Futures.addCallback(listenablefuture, new FutureCallback<List<Object>>()
             {
                 @Override
-                public void onSuccess(@Nullable List<Object> list)
+                public void onSuccess( List<Object> list)
                 {
                     ChunkRenderWorkerLitematica.this.freeRenderBuilder(task);
 

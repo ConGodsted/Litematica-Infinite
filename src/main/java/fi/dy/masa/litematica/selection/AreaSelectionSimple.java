@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.selection;
 
-import javax.annotation.Nullable;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,7 +25,7 @@ public class AreaSelectionSimple extends AreaSelection
     }
 
     @Override
-    @Nullable
+    
     public String createNewSubRegionBox(BlockPos pos1, String nameIn)
     {
         // NO-OP

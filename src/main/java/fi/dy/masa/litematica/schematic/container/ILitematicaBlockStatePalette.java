@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.schematic.container;
 
-import javax.annotation.Nullable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.ListTag;
 
@@ -15,7 +15,7 @@ public interface ILitematicaBlockStatePalette
     /**
      * Gets the block state by the palette id.
      */
-    @Nullable
+    
     BlockState getBlockState(int indexKey);
 
     int getPaletteSize();

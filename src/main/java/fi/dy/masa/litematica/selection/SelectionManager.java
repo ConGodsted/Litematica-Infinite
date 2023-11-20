@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -39,9 +38,9 @@ public class SelectionManager
     private final MinecraftClient mc = MinecraftClient.getInstance();
     private final Map<String, AreaSelection> selections = new HashMap<>();
     private final Map<String, AreaSelection> readOnlySelections = new HashMap<>();
-    @Nullable
+
     private String currentSelectionId;
-    @Nullable
+
     private GrabbedElement grabbedElement;
     private SelectionMode mode = SelectionMode.NORMAL;
 
@@ -77,13 +76,13 @@ public class SelectionManager
         }
     }
 
-    @Nullable
+
     public String getCurrentSelectionId()
     {
         return this.mode == SelectionMode.NORMAL ? this.currentSelectionId : null;
     }
 
-    @Nullable
+
     public String getCurrentNormalSelectionId()
     {
         return this.currentSelectionId;
@@ -99,7 +98,6 @@ public class SelectionManager
         return this.getNormalSelection(this.currentSelectionId) != null;
     }
 
-    @Nullable
     public AreaSelection getCurrentSelection()
     {
         SchematicProject project = DataManager.getSchematicProjectsManager().getCurrentProject();
@@ -112,8 +110,7 @@ public class SelectionManager
         return this.getSelection(this.currentSelectionId);
     }
 
-    @Nullable
-    public AreaSelection getSelection(@Nullable String selectionId)
+    public AreaSelection getSelection(String selectionId)
     {
         if (this.mode == SelectionMode.SIMPLE)
         {
@@ -128,13 +125,13 @@ public class SelectionManager
         return DataManager.getSimpleArea();
     }
 
-    @Nullable
-    protected AreaSelection getNormalSelection(@Nullable String selectionId)
+
+    protected AreaSelection getNormalSelection(String selectionId)
     {
         return selectionId != null ? this.selections.get(selectionId) : null;
     }
 
-    @Nullable
+
     public AreaSelection getOrLoadSelection(String selectionId)
     {
         AreaSelection selection = this.getNormalSelection(selectionId);
@@ -152,7 +149,7 @@ public class SelectionManager
         return selection;
     }
 
-    @Nullable
+
     public AreaSelection getOrLoadSelectionReadOnly(String selectionId)
     {
         AreaSelection selection = this.getNormalSelection(selectionId);
@@ -175,13 +172,13 @@ public class SelectionManager
         return selection;
     }
 
-    @Nullable
+
     private AreaSelection tryLoadSelectionFromFile(String selectionId)
     {
         return tryLoadSelectionFromFile(new File(selectionId));
     }
 
-    @Nullable
+
     public static AreaSelection tryLoadSelectionFromFile(File file)
     {
         JsonElement el = JsonUtils.parseJsonFile(file);
@@ -289,7 +286,7 @@ public class SelectionManager
         return false;
     }
 
-    public void setCurrentSelection(@Nullable String selectionId)
+    public void setCurrentSelection( String selectionId)
     {
         this.currentSelectionId = selectionId;
 
@@ -694,7 +691,7 @@ public class SelectionManager
         this.readOnlySelections.clear();
     }
 
-    @Nullable
+    
     public GuiBase getEditGui()
     {
         AreaSelection selection = this.getCurrentSelection();
@@ -717,7 +714,7 @@ public class SelectionManager
         }
     }
 
-    public void openEditGui(@Nullable Screen parent)
+    public void openEditGui( Screen parent)
     {
         GuiBase gui = this.getEditGui();
 

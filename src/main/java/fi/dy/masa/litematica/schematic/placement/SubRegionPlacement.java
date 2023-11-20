@@ -1,6 +1,5 @@
 package fi.dy.masa.litematica.schematic.placement;
 
-import javax.annotation.Nullable;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -185,7 +184,7 @@ public class SubRegionPlacement
         return obj;
     }
 
-    @Nullable
+    
     public static SubRegionPlacement fromJson(JsonObject obj)
     {
         if (JsonUtils.hasArray(obj, "pos") &&

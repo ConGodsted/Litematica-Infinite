@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.gui.GuiMainMenu.ButtonListenerChangeMenu;
 import fi.dy.masa.litematica.gui.widgets.WidgetListSchematicPlacements;
@@ -62,7 +62,7 @@ public class GuiSchematicPlacementsList extends GuiListBase<SchematicPlacement, 
     }
 
     @Override
-    public void onSelectionChange(@Nullable SchematicPlacement entry)
+    public void onSelectionChange( SchematicPlacement entry)
     {
         this.manager.setSelectedSchematicPlacement(entry != this.manager.getSelectedSchematicPlacement() ? entry : null);
     }

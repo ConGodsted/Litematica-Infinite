@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nullable;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,7 +30,7 @@ public abstract class TaskBase implements ITask, IInfoHudRenderer
     protected List<String> infoHudLines = new ArrayList<>();
     protected boolean finished;
     protected boolean printCompletionMessage = true;
-    @Nullable private ICompletionListener completionListener;
+     private ICompletionListener completionListener;
 
     protected TaskBase()
     {
@@ -60,7 +60,7 @@ public abstract class TaskBase implements ITask, IInfoHudRenderer
         this.printCompletionMessage = false;
     }
 
-    public void setCompletionListener(@Nullable ICompletionListener listener)
+    public void setCompletionListener( ICompletionListener listener)
     {
         this.completionListener = listener;
     }

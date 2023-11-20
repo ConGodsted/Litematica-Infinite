@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.schematic.container;
 
-import javax.annotation.Nullable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -46,7 +46,7 @@ public class LitematicaBlockStatePaletteLinear implements ILitematicaBlockStateP
     }
 
     @Override
-    @Nullable
+    
     public BlockState getBlockState(int indexKey)
     {
         return indexKey >= 0 && indexKey < this.currentSize ? this.states[indexKey] : null;

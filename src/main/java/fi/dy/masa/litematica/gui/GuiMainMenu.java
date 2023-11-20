@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.Reference;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.selection.SelectionMode;
@@ -103,10 +103,10 @@ public class GuiMainMenu extends GuiBase
     public static class ButtonListenerChangeMenu implements IButtonActionListener
     {
         private final ButtonType type;
-        @Nullable
+        
         private final Screen parent;
 
-        public ButtonListenerChangeMenu(ButtonType type, @Nullable Screen parent)
+        public ButtonListenerChangeMenu(ButtonType type,  Screen parent)
         {
             this.type = type;
             this.parent = parent;

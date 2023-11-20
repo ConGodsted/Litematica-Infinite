@@ -2,7 +2,7 @@ package fi.dy.masa.litematica.gui.widgets;
 
 import java.util.Collection;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import fi.dy.masa.litematica.data.SchematicHolder;
 import fi.dy.masa.litematica.gui.Icons;
@@ -16,7 +16,7 @@ import fi.dy.masa.malilib.util.FileUtils;
 public class WidgetListLoadedSchematics extends WidgetListBase<LitematicaSchematic, WidgetSchematicEntry>
 {
     public WidgetListLoadedSchematics(int x, int y, int width, int height,
-            @Nullable ISelectionListener<LitematicaSchematic> selectionListener)
+             ISelectionListener<LitematicaSchematic> selectionListener)
     {
         super(x, y, width, height, selectionListener);
 

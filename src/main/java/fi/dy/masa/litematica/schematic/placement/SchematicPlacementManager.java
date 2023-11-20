@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nullable;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.gson.JsonArray;
@@ -62,7 +61,7 @@ public class SchematicPlacementManager
     private final Set<ChunkPos> chunksToUnload = new HashSet<>();
     private final Set<ChunkPos> chunksPreChange = new HashSet<>();
 
-    @Nullable
+    
     private SchematicPlacement selectedPlacement;
 
     public boolean hasPendingRebuilds()
@@ -326,13 +325,13 @@ public class SchematicPlacementManager
         }
     }
 
-    @Nullable
+
     public SchematicPlacement getSelectedSchematicPlacement()
     {
         return this.selectedPlacement;
     }
 
-    public void setSelectedSchematicPlacement(@Nullable SchematicPlacement placement)
+    public void setSelectedSchematicPlacement( SchematicPlacement placement)
     {
         if (placement == null || this.schematicPlacements.contains(placement))
         {
@@ -670,7 +669,7 @@ public class SchematicPlacementManager
 
                 if (mc.isIntegratedServerRunning())
                 {
-                    final ServerWorld world = mc.getServer().getWorld(mc.player.getEntityWorld().getRegistryKey());
+                    final ServerWorld world = mc.getServer().getWorld(mc.player.getEntityWorld().dimension.getType());
                     final LitematicaSchematic schematic = schematicPlacement.getSchematic();
                     MinecraftServer server = mc.getServer();
 

@@ -2,7 +2,7 @@
     "schemaVersion": 1,
     "id": "litematica",
     "name": "Litematica",
-    "version": "${mod_version}",
+    "version": "0.0.0-infinite",
 
     "description": "A modern schematic mod for LiteLoader, Rift, Fabric etc.",
     "authors": [
@@ -33,6 +33,10 @@
     ],
 
     "depends": {
-        "malilib": ">=0.10.0-dev.21"
+        "malilib": ">=0.10.0-dev.19"
+    },
+
+    "custom": {
+        "modmenu:clientsideOnly": true
     }
 }

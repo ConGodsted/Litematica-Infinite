@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.render;
 
-import javax.annotation.Nullable;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -10,8 +10,8 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 import fi.dy.masa.litematica.config.Configs;
 import fi.dy.masa.litematica.config.Hotkeys;
@@ -71,7 +71,7 @@ public class LitematicaRenderer
         this.getWorldRenderer().loadRenderers();
     }
 
-    public void onSchematicWorldChanged(@Nullable WorldSchematic worldClient)
+    public void onSchematicWorldChanged( WorldSchematic worldClient)
     {
         this.getWorldRenderer().setWorldAndLoadRenderers(worldClient);
     }
@@ -315,7 +315,7 @@ public class LitematicaRenderer
         }
     }
 
-    public void piecewiseRenderSolid(MatrixStack matrices)
+    public void piecewiseRenderSolid(MatrixStack matrices, float partialTicks)
     {
         if (this.renderPiecewiseBlocks)
         {
@@ -343,7 +343,7 @@ public class LitematicaRenderer
         }
     }
 
-    public void piecewiseRenderCutoutMipped(MatrixStack matrices)
+    public void piecewiseRenderCutoutMipped(MatrixStack matrices, float partialTicks)
     {
         if (this.renderPiecewiseBlocks)
         {
@@ -371,7 +371,7 @@ public class LitematicaRenderer
         }
     }
 
-    public void piecewiseRenderCutout(MatrixStack matrices)
+    public void piecewiseRenderCutout(MatrixStack matrices, float partialTicks)
     {
         if (this.renderPiecewiseBlocks)
         {
@@ -399,7 +399,7 @@ public class LitematicaRenderer
         }
     }
 
-    public void piecewiseRenderTranslucent(MatrixStack matrices)
+    public void piecewiseRenderTranslucent(MatrixStack matrices, float partialTicks)
     {
         if (this.renderPiecewisePrepared)
         {

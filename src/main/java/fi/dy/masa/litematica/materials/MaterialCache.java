@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
@@ -141,7 +141,7 @@ public class MaterialCache
         return ImmutableList.of(this.getItemForState(state, world, pos));
     }
 
-    @Nullable
+    
     protected ItemStack getStateToItemOverride(BlockState state)
     {
         Block block = state.getBlock();

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonArray;
@@ -63,13 +63,13 @@ public class SchematicPlacement
     private int coordinateLockMask;
     private int boxesBBColor;
     private Color4f boxesBBColorVec = new Color4f(0xFF, 0xFF, 0xFF);
-    @Nullable
+    
     private Box enclosingBox;
-    @Nullable
+    
     private File schematicFile;
-    @Nullable
+    
     private String selectedSubRegionName;
-    @Nullable
+    
     private MaterialListBase materialList;
 
     private SchematicPlacement(LitematicaSchematic schematic, BlockPos origin, String name, boolean enabled, boolean enableRender)
@@ -239,13 +239,13 @@ public class SchematicPlacement
         return schematic;
     }
 
-    @Nullable
+    
     public File getSchematicFile()
     {
         return this.schematicFile;
     }
 
-    @Nullable
+    
     public Box getEclosingBox()
     {
         return this.enclosingBox;
@@ -335,24 +335,24 @@ public class SchematicPlacement
         return placement;
     }
 
-    @Nullable
+    
     public String getSelectedSubRegionName()
     {
         return this.selectedSubRegionName;
     }
 
-    public void setSelectedSubRegionName(@Nullable String name)
+    public void setSelectedSubRegionName( String name)
     {
         this.selectedSubRegionName = name;
     }
 
-    @Nullable
+    
     public SubRegionPlacement getSelectedSubRegionPlacement()
     {
         return this.selectedSubRegionName != null ? this.relativeSubRegionPlacements.get(this.selectedSubRegionName) : null;
     }
 
-    @Nullable
+    
     public SubRegionPlacement getRelativeSubRegionPlacement(String areaName)
     {
         return this.relativeSubRegionPlacements.get(areaName);
@@ -528,7 +528,7 @@ public class SchematicPlacement
         return PositionUtils.getBoxesWithinChunk(chunkX, chunkZ, subRegions);
     }
 
-    @Nullable
+    
     public IntBoundingBox getBoxWithinChunkForRegion(String regionName, int chunkX, int chunkZ)
     {
         Box box = this.getSubRegionBoxFor(regionName, RequiredEnabled.PLACEMENT_ENABLED).get(regionName);
@@ -876,7 +876,7 @@ public class SchematicPlacement
         }
     }
 
-    @Nullable
+    
     public JsonObject toJson()
     {
         if (this.schematic.getFile() != null)
@@ -935,7 +935,7 @@ public class SchematicPlacement
         return null;
     }
 
-    @Nullable
+    
     public static SchematicPlacement fromJson(JsonObject obj)
     {
         if (JsonUtils.hasString(obj, "schematic") &&

@@ -1,7 +1,7 @@
 package fi.dy.masa.litematica.gui;
 
 import java.io.File;
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.gui.GuiMainMenu.ButtonListenerChangeMenu;
 import fi.dy.masa.litematica.gui.widgets.WidgetSchematicProjectBrowser;
@@ -109,14 +109,14 @@ public class GuiSchematicProjectsBrowser extends GuiListBase<DirectoryEntry, Wid
     }
 
     @Override
-    @Nullable
+    
     protected ISelectionListener<DirectoryEntry> getSelectionListener()
     {
         return this;
     }
 
     @Override
-    public void onSelectionChange(@Nullable DirectoryEntry entry)
+    public void onSelectionChange( DirectoryEntry entry)
     {
         this.reCreateGuiElements();
     }
@@ -197,7 +197,7 @@ public class GuiSchematicProjectsBrowser extends GuiListBase<DirectoryEntry, Wid
             CLOSE_PROJECT       ("litematica.gui.button.schematic_projects.close_project");
 
             private final String translationKey;
-            @Nullable
+            
             private final String hoverText;
 
             private Type(String label)
@@ -216,7 +216,7 @@ public class GuiSchematicProjectsBrowser extends GuiListBase<DirectoryEntry, Wid
                 return this.translationKey;
             }
 
-            @Nullable
+            
             public String getHoverText()
             {
                 return this.hoverText != null ? StringUtils.translate(this.hoverText) : null;

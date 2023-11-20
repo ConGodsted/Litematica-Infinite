@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -20,7 +20,7 @@ public abstract class MaterialListBase implements IMaterialList
     protected final List<MaterialListEntry> materialListPreFiltered = new ArrayList<>();
     protected final List<MaterialListEntry> materialListFiltered = new ArrayList<>();
     protected ImmutableList<MaterialListEntry> materialListAll = ImmutableList.of();
-    @Nullable protected ICompletionListener completionListener;
+     protected ICompletionListener completionListener;
     protected SortCriteria sortCriteria = SortCriteria.COUNT_TOTAL;
     protected BlockInfoListType materialListType = BlockInfoListType.ALL;
     protected boolean reverse;

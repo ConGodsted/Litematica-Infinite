@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -33,8 +33,8 @@ public class AreaSelection
     protected boolean originSelected;
     protected BlockPos calculatedOrigin = BlockPos.ORIGIN;
     protected boolean calculatedOriginDirty = true;
-    @Nullable protected BlockPos explicitOrigin = null;
-    @Nullable protected String currentBox;
+     protected BlockPos explicitOrigin = null;
+     protected String currentBox;
 
     public static AreaSelection fromPlacement(SchematicPlacement placement)
     {
@@ -69,13 +69,13 @@ public class AreaSelection
         }
     }
 
-    @Nullable
+    
     public String getCurrentSubRegionBoxName()
     {
         return this.currentBox;
     }
 
-    public boolean setSelectedSubRegionBox(@Nullable String name)
+    public boolean setSelectedSubRegionBox( String name)
     {
         if (name == null || this.subRegionBoxes.containsKey(name))
         {
@@ -123,13 +123,13 @@ public class AreaSelection
      * Get the explicitly defined origin point, if any.
      * @return
      */
-    @Nullable
+    
     public BlockPos getExplicitOrigin()
     {
         return this.explicitOrigin;
     }
 
-    public void setExplicitOrigin(@Nullable BlockPos origin)
+    public void setExplicitOrigin( BlockPos origin)
     {
         this.explicitOrigin = origin;
 
@@ -155,13 +155,13 @@ public class AreaSelection
         this.calculatedOriginDirty = false;
     }
 
-    @Nullable
+    
     public Box getSubRegionBox(String name)
     {
         return this.subRegionBoxes.get(name);
     }
 
-    @Nullable
+    
     public Box getSelectedSubRegionBox()
     {
         return this.currentBox != null ? this.subRegionBoxes.get(this.currentBox) : null;
@@ -184,7 +184,7 @@ public class AreaSelection
         return builder.build();
     }
 
-    @Nullable
+    
     public String createNewSubRegionBox(BlockPos pos1, final String nameIn)
     {
         this.clearCurrentSelectedCorner();
@@ -275,7 +275,7 @@ public class AreaSelection
         return this.renameSubRegionBox(oldName, newName, null);
     }
 
-    public boolean renameSubRegionBox(String oldName, String newName, @Nullable IMessageConsumer feedback)
+    public boolean renameSubRegionBox(String oldName, String newName,  IMessageConsumer feedback)
     {
         Box box = this.subRegionBoxes.get(oldName);
 
@@ -390,7 +390,7 @@ public class AreaSelection
         }
     }
 
-    public void setCoordinate(@Nullable Box box, Corner corner, CoordinateType type, int value)
+    public void setCoordinate( Box box, Corner corner, CoordinateType type, int value)
     {
         if (box != null && corner != null && corner != Corner.NONE)
         {

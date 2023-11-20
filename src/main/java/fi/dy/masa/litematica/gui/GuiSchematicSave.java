@@ -1,7 +1,7 @@
 package fi.dy.masa.litematica.gui;
 
 import java.io.File;
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.scheduler.TaskScheduler;
 import fi.dy.masa.litematica.scheduler.tasks.TaskSaveSchematic;
@@ -28,7 +28,7 @@ public class GuiSchematicSave extends GuiSchematicSaveBase implements ICompletio
         this(null);
     }
 
-    public GuiSchematicSave(@Nullable LitematicaSchematic schematic)
+    public GuiSchematicSave( LitematicaSchematic schematic)
     {
         super(schematic);
 

@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.ArrayListMultimap;
@@ -586,7 +586,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         return this.correctStateCounts;
     }
 
-    @Nullable
+    
     public BlockMismatch getMismatchForPosition(BlockPos pos)
     {
         return this.blockMismatches.get(pos);
@@ -892,7 +892,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         }
     }
 
-    private void updateMismatchPositionStringList(@Nullable MismatchType mismatchType, List<MismatchRenderPos> positionList)
+    private void updateMismatchPositionStringList( MismatchType mismatchType, List<MismatchRenderPos> positionList)
     {
         List<String> hudLines = new ArrayList<>();
 

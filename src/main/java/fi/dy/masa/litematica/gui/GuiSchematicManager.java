@@ -1,7 +1,7 @@
 package fi.dy.masa.litematica.gui;
 
 import java.io.File;
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.Litematica;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.gui.GuiMainMenu.ButtonListenerChangeMenu;
@@ -99,7 +99,7 @@ public class GuiSchematicManager extends GuiSchematicBrowserBase implements ISel
     }
 
     @Override
-    public void onSelectionChange(@Nullable DirectoryEntry entry)
+    public void onSelectionChange( DirectoryEntry entry)
     {
         this.clearButtons();
         this.createButtons();
@@ -276,7 +276,7 @@ public class GuiSchematicManager extends GuiSchematicBrowserBase implements ISel
             EXPORT_TYPE                 ("");
 
             private final String label;
-            @Nullable
+            
             private final String hoverText;
 
             private Type(String label)
@@ -295,7 +295,7 @@ public class GuiSchematicManager extends GuiSchematicBrowserBase implements ISel
                 return StringUtils.translate(this.label);
             }
 
-            @Nullable
+            
             public String getHoverText()
             {
                 return this.hoverText != null ? StringUtils.translate(this.hoverText) : null;

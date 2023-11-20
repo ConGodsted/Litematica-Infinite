@@ -1,16 +1,16 @@
 package fi.dy.masa.litematica.render.schematic;
 
-import javax.annotation.Nullable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.LightType;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.chunk.light.LightingProvider;
@@ -21,6 +21,7 @@ public class ChunkCacheSchematic implements BlockRenderView
 {
     private static final BlockState AIR = Blocks.AIR.getDefaultState();
 
+    protected final ClientWorld world;
     protected final ClientWorld worldClient;
     protected final FakeLightingProvider lightingProvider;
     protected int chunkStartX;
@@ -28,10 +29,11 @@ public class ChunkCacheSchematic implements BlockRenderView
     protected WorldChunk[][] chunkArray;
     protected boolean empty;
 
-    public ChunkCacheSchematic(World worldIn, ClientWorld clientWorld, BlockPos pos, int expand)
+    public ChunkCacheSchematic(ClientWorld worldIn, ClientWorld clientWorld, BlockPos pos, int expand)
     {
         this.lightingProvider = new FakeLightingProvider();
 
+        this.world = worldIn;
         this.worldClient = clientWorld;
         this.chunkStartX = (pos.getX() - expand) >> 4;
         this.chunkStartZ = (pos.getZ() - expand) >> 4;
@@ -44,7 +46,7 @@ public class ChunkCacheSchematic implements BlockRenderView
         {
             for (int cz = this.chunkStartZ; cz <= chunkEndZ; ++cz)
             {
-                this.chunkArray[cx - this.chunkStartX][cz - this.chunkStartZ] = worldIn.getChunk(cx, cz);
+                this.chunkArray[cx - this.chunkStartX][cz - this.chunkStartZ] = (WorldChunk) worldIn.getChunk(cx, cz);
             }
         }
 
@@ -54,7 +56,7 @@ public class ChunkCacheSchematic implements BlockRenderView
             {
                 WorldChunk chunk = this.chunkArray[cx - this.chunkStartX][cz - this.chunkStartZ];
 
-                if (chunk != null && chunk.areSectionsEmptyBetween(pos.getY(), pos.getY() + 15) == false)
+                if (chunk != null && chunk.method_12228(pos.getY(), pos.getY() + 15) == false) // isEmptyBetween
                 {
                     this.empty = false;
                     break;
@@ -92,13 +94,13 @@ public class ChunkCacheSchematic implements BlockRenderView
     }
 
     @Override
-    @Nullable
+    
     public BlockEntity getBlockEntity(BlockPos pos)
     {
         return this.getBlockEntity(pos, WorldChunk.CreationType.CHECK);
     }
 
-    @Nullable
+    
     public BlockEntity getBlockEntity(BlockPos pos, WorldChunk.CreationType type)
     {
         int i = (pos.getX() >> 4) - this.chunkStartX;
@@ -111,6 +113,11 @@ public class ChunkCacheSchematic implements BlockRenderView
     public int getLightLevel(LightType var1, BlockPos var2)
     {
         return 15;
+    }
+
+    @Override
+    public Vector3f method_26443(BlockState blockState, BlockPos blockPos) {
+        return null;
     }
 
     @Override

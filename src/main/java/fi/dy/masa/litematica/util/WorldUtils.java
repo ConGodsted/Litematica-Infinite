@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import com.mojang.datafixers.DataFixer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -92,7 +92,7 @@ public class WorldUtils
         return litematicaSchematic != null && litematicaSchematic.writeToFile(outputDir, outputFileName, override);
     }
 
-    @Nullable
+    
     public static LitematicaSchematic convertSchematicaSchematicToLitematicaSchematic(File inputDir, String inputFileName,
             boolean ignoreEntities, IStringConsumer feedback)
     {
@@ -141,7 +141,7 @@ public class WorldUtils
         return litematicaSchematic != null && litematicaSchematic.writeToFile(outputDir, outputFileName, override);
     }
 
-    @Nullable
+    
     public static LitematicaSchematic convertStructureToLitematicaSchematic(File structureDir, String structureFileName,
             boolean ignoreEntities, IStringConsumer feedback)
     {
@@ -160,7 +160,7 @@ public class WorldUtils
 
             StructurePlacementData placementSettings = new StructurePlacementData();
             placementSettings.setIgnoreEntities(ignoreEntities);
-            //template.place(world, BlockPos.ORIGIN, BlockPos.ORIGIN, placementSettings, new Random(), 0x12); // TODO will be fixed in the schematic rewrite merge from 1.12.2 later on...
+            template.place(world, BlockPos.ORIGIN, BlockPos.ORIGIN, placementSettings, 0x12);
 
             String subRegionName = FileUtils.getNameWithoutExtension(structureFileName) + " (Converted Structure)";
             AreaSelection area = new AreaSelection();
@@ -200,7 +200,7 @@ public class WorldUtils
         return false;
     }
 
-    @Nullable
+    
     public static SchematicaSchematic convertLitematicaSchematicToSchematicaSchematic(File inputDir, String inputFileName, boolean ignoreEntities, IStringConsumer feedback)
     {
         LitematicaSchematic litematicaSchematic = LitematicaSchematic.createFromFile(inputDir, inputFileName);
@@ -235,7 +235,7 @@ public class WorldUtils
         return writeVanillaStructureToFile(template, outputDir, outputFileName, override, feedback);
     }
 
-    @Nullable
+    
     public static Structure convertLitematicaSchematicToVanillaStructure(File inputDir, String inputFileName, boolean ignoreEntities, IStringConsumer feedback)
     {
         LitematicaSchematic litematicaSchematic = LitematicaSchematic.createFromFile(inputDir, inputFileName);
@@ -687,6 +687,8 @@ public class WorldUtils
      * in the schematic, or the player is holding the wrong item in hand, then true is returned
      * to indicate that the use action should be cancelled.
      * @param mc
+     * @param doEasyPlace
+     * @param restrictPlacement
      * @return
      */
     public static boolean handlePlacementRestriction(MinecraftClient mc)
@@ -707,6 +709,8 @@ public class WorldUtils
      * in the schematic, or the player is holding the wrong item in hand, then true is returned
      * to indicate that the use action should be cancelled.
      * @param mc
+     * @param doEasyPlace
+     * @param restrictPlacement
      * @return true if the use action should be cancelled
      */
     private static boolean placementRestrictionInEffect(MinecraftClient mc)

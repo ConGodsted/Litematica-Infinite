@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import net.minecraft.client.MinecraftClient;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.gui.widgets.WidgetListSchematicVersions;
@@ -101,7 +101,7 @@ public class GuiSchematicProjectManager extends GuiListBase<SchematicVersion, Wi
     }
 
     @Override
-    public void onSelectionChange(@Nullable SchematicVersion entry)
+    public void onSelectionChange( SchematicVersion entry)
     {
         if (entry != null)
         {
@@ -201,7 +201,7 @@ public class GuiSchematicProjectManager extends GuiListBase<SchematicVersion, Wi
             SAVE_VERSION            ("litematica.gui.button.schematic_projects.save_version", "litematica.gui.button.hover.schematic_projects.save_new_version");
 
             private final String translationKey;
-            @Nullable private final String hoverText;
+             private final String hoverText;
 
             private Type(String label)
             {
@@ -219,7 +219,7 @@ public class GuiSchematicProjectManager extends GuiListBase<SchematicVersion, Wi
                 return this.translationKey;
             }
 
-            @Nullable
+            
             public String getHoverText()
             {
                 return this.hoverText != null ? StringUtils.translate(this.hoverText) : null;

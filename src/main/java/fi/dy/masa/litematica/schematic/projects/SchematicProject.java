@@ -3,7 +3,7 @@ package fi.dy.masa.litematica.schematic.projects;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import org.apache.commons.io.FileUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
@@ -43,7 +43,7 @@ public class SchematicProject
     private int lastCheckedOutVersion = -1;
     private boolean saveInProgress;
     private boolean dirty;
-    @Nullable
+    
     private SchematicPlacement currentPlacement;
 
     public SchematicProject(File directory, File projectFile)
@@ -173,7 +173,7 @@ public class SchematicProject
         return ImmutableList.copyOf(this.versions);
     }
 
-    @Nullable
+    
     public SchematicVersion getCurrentVersion()
     {
         if (this.currentVersionId >= 0 && this.currentVersionId < this.versions.size())
@@ -184,7 +184,7 @@ public class SchematicProject
         return null;
     }
 
-    @Nullable
+
     public SchematicPlacement getCurrentPlacement()
     {
         return this.currentPlacement;
@@ -410,7 +410,7 @@ public class SchematicProject
         return obj;
     }
 
-    @Nullable
+
     public static SchematicProject fromJson(JsonObject obj, File projectFile, boolean createPlacement)
     {
         BlockPos origin = JsonUtils.blockPosFromJson(obj, "origin");

@@ -5,7 +5,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -59,7 +58,7 @@ public class BlockInfo
         return this.totalHeight;
     }
 
-    public void render(int x, int y, MinecraftClient mc, MatrixStack matrixStack)
+    public void render(int x, int y, MinecraftClient mc)
     {
         if (this.state != null)
         {
@@ -71,7 +70,7 @@ public class BlockInfo
             int x1 = x + 10;
             y += 4;
 
-            textRenderer.draw(matrixStack, this.title, x1, y, 0xFFFFFFFF);
+            textRenderer.draw(this.title, x1, y, 0xFFFFFFFF);
 
             y += 12;
 
@@ -80,20 +79,20 @@ public class BlockInfo
 
             //mc.getRenderItem().zLevel += 100;
             RenderUtils.drawRect(x1, y, 16, 16, 0x20FFFFFF); // light background for the item
-            mc.getItemRenderer().renderInGui(this.stack, x1, y);
+            mc.getItemRenderer().renderGuiItem(mc.player, this.stack, x1, y);
             mc.getItemRenderer().renderGuiItemOverlay(textRenderer, this.stack, x1, y, null);
             //mc.getRenderItem().zLevel -= 100;
 
             //RenderSystem.disableBlend();
             RenderUtils.disableDiffuseLighting();
 
-            textRenderer.draw(matrixStack, this.stackName, x1 + 20, y + 4, 0xFFFFFFFF);
+            textRenderer.draw(this.stackName, x1 + 20, y + 4, 0xFFFFFFFF);
 
             y += 20;
-            textRenderer.draw(matrixStack, this.blockRegistryname, x1, y, 0xFF4060FF);
+            textRenderer.draw(this.blockRegistryname, x1, y, 0xFF4060FF);
             y += textRenderer.fontHeight + 4;
 
-            RenderUtils.renderText(x1, y, 0xFFB0B0B0, this.props, matrixStack);
+            RenderUtils.renderText(x1, y, 0xFFB0B0B0, this.props);
 
             RenderSystem.popMatrix();
         }

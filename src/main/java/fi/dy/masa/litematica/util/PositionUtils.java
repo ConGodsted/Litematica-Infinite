@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nullable;
 import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -41,6 +40,7 @@ public class PositionUtils
     public static final ChunkPosComparator CHUNK_POS_COMPARATOR = new ChunkPosComparator();
 
     public static final Direction.Axis[] AXES_ALL = new Direction.Axis[] { Direction.Axis.X, Direction.Axis.Y, Direction.Axis.Z };
+    public static final Direction[] FACING_ALL = new Direction[] { Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST };
     public static final Direction[] ADJACENT_SIDES_ZY = new Direction[] { Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH };
     public static final Direction[] ADJACENT_SIDES_XY = new Direction[] { Direction.DOWN, Direction.UP, Direction.EAST, Direction.WEST };
     public static final Direction[] ADJACENT_SIDES_XZ = new Direction[] { Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST };
@@ -234,7 +234,7 @@ public class PositionUtils
      * @param boxes
      * @return
      */
-    @Nullable
+    
     public static Pair<BlockPos, BlockPos> getEnclosingAreaCorners(Collection<Box> boxes)
     {
         if (boxes.isEmpty())
@@ -254,7 +254,7 @@ public class PositionUtils
         return Pair.of(posMin.toImmutable(), posMax.toImmutable());
     }
 
-    private static void getMinMaxCoords(BlockPos.Mutable posMin, BlockPos.Mutable posMax, @Nullable BlockPos posToCheck)
+    private static void getMinMaxCoords(BlockPos.Mutable posMin, BlockPos.Mutable posMax,  BlockPos posToCheck)
     {
         if (posToCheck != null)
         {
@@ -353,7 +353,7 @@ public class PositionUtils
         return set;
     }
 
-    @Nullable
+    
     public static IntBoundingBox getBoundsWithinChunkForBox(Box box, int chunkX, int chunkZ)
     {
         final int chunkXMin = chunkX << 4;

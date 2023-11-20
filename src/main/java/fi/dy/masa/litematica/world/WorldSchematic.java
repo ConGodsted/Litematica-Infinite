@@ -3,88 +3,58 @@ package fi.dy.masa.litematica.world;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.IdentityHashMap;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.annotation.Nullable;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.DummyClientTickScheduler;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.world.ClientChunkManager;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.map.MapState;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.TagManager;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.LightType;
-import net.minecraft.world.MutableWorldProperties;
-import net.minecraft.world.TickScheduler;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.level.LevelInfo;
 import fi.dy.masa.litematica.render.LitematicaRenderer;
 import fi.dy.masa.litematica.render.schematic.WorldRendererSchematic;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
-public class WorldSchematic extends World
+public class WorldSchematic extends ClientWorld
 {
     private final MinecraftClient mc;
     private final WorldRendererSchematic worldRenderer;
-    private final ChunkManagerSchematic chunkManagerSchematic;
-    private final Int2ObjectOpenHashMap<Entity> regularEntities = new Int2ObjectOpenHashMap<>();
+    private ChunkProviderSchematic chunkProviderSchematic;
     private int nextEntityId;
 
-    protected WorldSchematic(MutableWorldProperties mutableWorldProperties, DimensionType dimensionType, Supplier<Profiler> supplier)
+    public WorldSchematic(ClientPlayNetworkHandler netHandler, LevelInfo settings,
+            DimensionType dimType, Supplier<Profiler> profilerIn)
     {
-        super(mutableWorldProperties, null, dimensionType, supplier, true, true, 0L);
+        super(netHandler, settings, dimType, 1, profilerIn, null);
 
         this.mc = MinecraftClient.getInstance();
         this.worldRenderer = LitematicaRenderer.getInstance().getWorldRenderer();
-        this.chunkManagerSchematic = new ChunkManagerSchematic(this);
+        this.chunkProviderSchematic = new ChunkProviderSchematic(this);
     }
 
-    public ChunkManagerSchematic getChunkProvider()
+    public ChunkProviderSchematic getChunkProvider()
     {
-        return this.chunkManagerSchematic;
-    }
-
-    @Override
-    public ChunkManagerSchematic getChunkManager()
-    {
-        return this.chunkManagerSchematic;
+        return this.chunkProviderSchematic;
     }
 
     @Override
-    public TickScheduler<Block> getBlockTickScheduler()
+    public ClientChunkManager getChunkManager()
     {
-        return DummyClientTickScheduler.get();
-    }
-
-    @Override
-    public TickScheduler<Fluid> getFluidTickScheduler()
-    {
-        return DummyClientTickScheduler.get();
-    }
-
-    public int getRegularEntityCount()
-    {
-        return this.regularEntities.size();
+        return this.getChunkProvider();
     }
 
     @Override
@@ -96,19 +66,13 @@ public class WorldSchematic extends World
     @Override
     public WorldChunk getChunk(int chunkX, int chunkZ)
     {
-        return this.chunkManagerSchematic.getChunk(chunkX, chunkZ);
+        return this.chunkProviderSchematic.getChunk(chunkX, chunkZ);
     }
 
     @Override
     public Chunk getChunk(int chunkX, int chunkZ, ChunkStatus status, boolean required)
     {
         return this.getChunk(chunkX, chunkZ);
-    }
-
-    @Override
-    public Biome getGeneratorStoredBiome(int biomeX, int biomeY, int biomeZ)
-    {
-        return BuiltinBiomes.PLAINS;
     }
 
     @Override
@@ -129,56 +93,23 @@ public class WorldSchematic extends World
         return this.spawnEntityBase(entityIn);
     }
 
-    private boolean spawnEntityBase(Entity entity)
+    private boolean spawnEntityBase(Entity entityIn)
     {
-        int cx = MathHelper.floor(entity.getX() / 16.0D);
-        int cz = MathHelper.floor(entity.getZ() / 16.0D);
+        int cx = MathHelper.floor(entityIn.getX() / 16.0D);
+        int cz = MathHelper.floor(entityIn.getZ() / 16.0D);
 
-        if (this.chunkManagerSchematic.isChunkLoaded(cx, cz) == false)
+        if (this.chunkProviderSchematic.isChunkLoaded(cx, cz) == false)
         {
             return false;
         }
         else
         {
-            entity.setEntityId(this.nextEntityId++);
+            entityIn.setEntityId(this.nextEntityId++);
 
-            int id = entity.getEntityId();
-            this.removeEntity(id);
-
-            this.regularEntities.put(id, entity);
-            this.chunkManagerSchematic.getChunk(MathHelper.floor(entity.getX() / 16.0D), MathHelper.floor(entity.getZ() / 16.0D)).addEntity(entity);
+            super.addEntity(entityIn.getEntityId(), entityIn);
 
             return true;
         }
-    }
-
-    public void removeEntity(int id)
-    {
-        Entity entity = this.regularEntities.remove(id);
-
-        if (entity != null)
-        {
-            entity.remove();
-            entity.detach();
-
-            if (entity.updateNeeded)
-            {
-                this.getChunk(entity.chunkX, entity.chunkZ).remove(entity);
-            }
-        }
-    }
-
-    @Nullable
-    @Override
-    public Entity getEntityById(int id)
-    {
-        return this.regularEntities.get(id);
-    }
-
-    @Override
-    public List<? extends PlayerEntity> getPlayers()
-    {
-        return ImmutableList.of();
     }
 
     public void unloadBlockEntities(Collection<BlockEntity> blockEntities)
@@ -196,48 +127,12 @@ public class WorldSchematic extends World
     }
 
     @Override
-    @Nullable
-    public MapState getMapState(String id)
-    {
-        return null;
-    }
-
-    @Override
-    public void putMapState(MapState mapState)
-    {
-        // NO-OP
-    }
-
-    @Override
-    public int getNextMapId()
-    {
-        return 0;
-    }
-
-    @Override
-    public Scoreboard getScoreboard()
-    {
-        return this.mc.world != null ? this.mc.world.getScoreboard() : null;
-    }
-
-    @Override
-    public RecipeManager getRecipeManager()
-    {
-        return this.mc.world != null ? this.mc.world.getRecipeManager() : null;
-    }
-
-    @Override
-    public TagManager getTagManager()
-    {
-        return this.mc.world != null ? this.mc.world.getTagManager() : null;
-    }
-
-    @Override
-    public void scheduleBlockRerenderIfNeeded(BlockPos pos, BlockState stateOld, BlockState stateNew)
+    public void checkBlockRerender(BlockPos pos, BlockState stateOld, BlockState stateNew)
     {
         this.scheduleBlockRenders(pos.getX() >> 4, pos.getY() >> 4, pos.getZ() >> 4);
     }
 
+    @Override
     public void scheduleBlockRenders(int chunkX, int chunkY, int chunkZ)
     {
         if (chunkY >= 0 && chunkY < 16)
@@ -276,12 +171,6 @@ public class WorldSchematic extends World
     }
 
     @Override
-    public float getBrightness(Direction direction, boolean shaded)
-    {
-        return 0;
-    }
-
-    @Override
     public int getLightLevel(LightType type, BlockPos pos)
     {
         return 15;
@@ -294,36 +183,30 @@ public class WorldSchematic extends World
     }
 
     @Override
-    public void updateListeners(BlockPos blockPos_1, BlockState blockState_1, BlockState blockState_2, int flags)
+    public void updateListeners(BlockPos blockPos_1, BlockState blockState_1, BlockState blockState_2, int int_1)
     {
         // NO-OP
     }
 
     @Override
-    public void setBlockBreakingInfo(int entityId, BlockPos pos, int progress)
-    {
-        // NO-OP
-    }
-
-    @Override
-    public void syncGlobalEvent(int eventId, BlockPos pos, int data)
+    public void playGlobalEvent(int int_1, BlockPos blockPos_1, int int_2)
     {
         // NO-OP
     }
     
     @Override
-    public void syncWorldEvent(@Nullable PlayerEntity entity, int id, BlockPos pos, int data)
+    public void playLevelEvent( PlayerEntity playerEntity_1, int int_1, BlockPos blockPos_1, int int_2)
     {
     }
 
     @Override
-    public void addParticle(ParticleEffect particleParameters_1, double double_1, double double_2, double double_3, double double_4, double double_5, double double_6)
+    public void addParticle(ParticleEffect particleParameters_1, double double_1, double double_2, double double_3, double double_4, double     double_5, double double_6)
     {
         // NO-OP
     }
 
     @Override
-    public void addParticle(ParticleEffect particleParameters_1, boolean boolean_1, double double_1, double double_2, double double_3, double double_4, double double_5, double double_6)
+    public void addParticle(ParticleEffect particleParameters_1, boolean boolean_1, double double_1, double double_2, double double_3, double   double_4, double double_5, double double_6)
     {
         // NO-OP
     }
@@ -336,6 +219,12 @@ public class WorldSchematic extends World
 
     @Override
     public void addImportantParticle(ParticleEffect particleParameters_1, boolean boolean_1, double double_1, double double_2, double double_3,     double double_4, double double_5, double double_6)
+    {
+        // NO-OP
+    }
+
+    @Override
+    public void playSound(BlockPos pos, SoundEvent soundIn, SoundCategory category, float volume, float pitch, boolean distanceDelay)
     {
         // NO-OP
     }
@@ -356,17 +245,5 @@ public class WorldSchematic extends World
     public void playSound(PlayerEntity player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch)
     {
         // NO-OP
-    }
-
-    @Override
-    public void playSoundFromEntity(@Nullable PlayerEntity player, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch)
-    {
-        // NO-OP
-    }
-
-    @Override
-    public DynamicRegistryManager getRegistryManager()
-    {
-        return this.mc.world.getRegistryManager();
     }
 }

@@ -3,7 +3,7 @@ package fi.dy.masa.litematica.util;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import javax.annotation.Nullable;
+
 import com.google.common.base.Predicate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -29,7 +29,7 @@ public class EntityUtils
     public static final Predicate<Entity> NOT_PLAYER = new Predicate<Entity>()
     {
         @Override
-        public boolean apply(@Nullable Entity entity)
+        public boolean apply( Entity entity)
         {
             return (entity instanceof PlayerEntity) == false;
         }
@@ -78,7 +78,7 @@ public class EntityUtils
      * @param stack
      * @return
      */
-    @Nullable
+    
     public static Hand getUsedHandForItem(PlayerEntity player, ItemStack stack)
     {
         Hand hand = null;
@@ -125,7 +125,7 @@ public class EntityUtils
         return getHorizontalLookingDirection(entity);
     }
 
-    @Nullable
+    
     public static <T extends Entity> T findEntityByUUID(List<T> list, UUID uuid)
     {
         if (uuid == null)
@@ -144,7 +144,7 @@ public class EntityUtils
         return null;
     }
 
-    @Nullable
+    
     public static String getEntityId(Entity entity)
     {
         EntityType<?> entitytype = entity.getType();
@@ -152,7 +152,7 @@ public class EntityUtils
         return entitytype.isSaveable() && resourcelocation != null ? resourcelocation.toString() : null;
     }
 
-    @Nullable
+    
     private static Entity createEntityFromNBTSingle(CompoundTag nbt, World world)
     {
         try
@@ -179,7 +179,7 @@ public class EntityUtils
      * @param world
      * @return
      */
-    @Nullable
+    
     public static Entity createEntityAndPassengersFromNBT(CompoundTag nbt, World world)
     {
         Entity entity = createEntityFromNBTSingle(nbt, world);
@@ -255,7 +255,7 @@ public class EntityUtils
         BlockPos regionPosAbs = regionPosRelTransformed.add(origin);
         net.minecraft.util.math.Box bb = PositionUtils.createEnclosingAABB(regionPosAbs, posEndAbs);
 
-        return world.getOtherEntities(null, bb, null);
+        return world.getEntities((Entity) null, bb, null);
     }
 
     public static boolean shouldPickBlock(PlayerEntity player)

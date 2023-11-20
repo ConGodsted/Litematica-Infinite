@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.gui.GuiMainMenu.ButtonListenerChangeMenu;
 import fi.dy.masa.litematica.gui.widgets.WidgetListPlacementSubRegions;
@@ -465,14 +465,14 @@ public class GuiPlacementConfiguration  extends GuiListBase<SubRegionPlacement, 
             OPEN_MATERIAL_LIST_GUI  ("litematica.gui.button.material_list");
 
             private final String translationKey;
-            @Nullable private final String hoverText;
+             private final String hoverText;
 
             private Type(String translationKey)
             {
                 this(translationKey, null);
             }
 
-            private Type(String translationKey, @Nullable String hoverText)
+            private Type(String translationKey,  String hoverText)
             {
                 this.translationKey = translationKey;
                 this.hoverText = hoverText;
@@ -488,7 +488,7 @@ public class GuiPlacementConfiguration  extends GuiListBase<SubRegionPlacement, 
                 return StringUtils.translate(this.translationKey, args);
             }
 
-            @Nullable
+            
             public String getHoverText()
             {
                 return this.hoverText != null ? StringUtils.translate(this.hoverText) : null;

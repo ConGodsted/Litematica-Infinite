@@ -7,7 +7,6 @@ import fi.dy.masa.litematica.schematic.projects.SchematicVersion;
 import fi.dy.masa.malilib.gui.widgets.WidgetListEntryBase;
 import fi.dy.masa.malilib.render.RenderUtils;
 import fi.dy.masa.malilib.util.StringUtils;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class WidgetSchematicVersion extends WidgetListEntryBase<SchematicVersion>
 {
@@ -24,7 +23,7 @@ public class WidgetSchematicVersion extends WidgetListEntryBase<SchematicVersion
     }
 
     @Override
-    public void render(int mouseX, int mouseY, boolean selected, MatrixStack matrixStack)
+    public void render(int mouseX, int mouseY, boolean selected)
     {
         RenderUtils.color(1f, 1f, 1f, 1f);
 
@@ -51,11 +50,11 @@ public class WidgetSchematicVersion extends WidgetListEntryBase<SchematicVersion
         }
 
         String str = StringUtils.translate("litematica.gui.label.schematic_projects.version_entry", this.entry.getVersion(), this.entry.getName());
-        this.drawString(this.x + 4, this.y + 4, 0xFFFFFFFF, str, matrixStack);
+        this.drawString(this.x + 4, this.y + 4, 0xFFFFFFFF, str);
     }
 
     @Override
-    public void postRenderHovered(int mouseX, int mouseY, boolean selected, MatrixStack matrixStack)
+    public void postRenderHovered(int mouseX, int mouseY, boolean selected)
     {
         List<String> text = new ArrayList<>();
         /*
@@ -71,6 +70,6 @@ public class WidgetSchematicVersion extends WidgetListEntryBase<SchematicVersion
         text.add(StringUtils.translate("litematica.gui.label.schematic_placement.enclosing_size", strSize));
         */
 
-        RenderUtils.drawHoverText(mouseX, mouseY, text, matrixStack);
+        RenderUtils.drawHoverText(mouseX, mouseY, text);
     }
 }

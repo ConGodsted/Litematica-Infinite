@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
@@ -72,15 +72,15 @@ public class LitematicaSchematic
     private final Map<String, BlockPos> subRegionSizes = new HashMap<>();
     private final SchematicMetadata metadata = new SchematicMetadata();
     private int totalBlocks;
-    @Nullable
+    
     private final File schematicFile;
 
-    private LitematicaSchematic(@Nullable File file)
+    private LitematicaSchematic( File file)
     {
         this.schematicFile = file;
     }
 
-    @Nullable
+    
     public File getFile()
     {
         return this.schematicFile;
@@ -106,7 +106,7 @@ public class LitematicaSchematic
         return this.blockContainers.size();
     }
 
-    @Nullable
+    
     public BlockPos getSubRegionPosition(String areaName)
     {
         return this.subRegionPositions.get(areaName);
@@ -138,7 +138,7 @@ public class LitematicaSchematic
         return builder.build();
     }
 
-    @Nullable
+    
     public BlockPos getAreaSize(String regionName)
     {
         return this.subRegionSizes.get(regionName);
@@ -159,7 +159,7 @@ public class LitematicaSchematic
         return builder.build();
     }
 
-    @Nullable
+    
     public static LitematicaSchematic createFromWorld(World world, AreaSelection area, boolean ignoreEntities, String author, IStringConsumer feedback)
     {
         List<Box> boxes = PositionUtils.getValidBoxes(area);
@@ -292,8 +292,8 @@ public class LitematicaSchematic
     private boolean placeBlocksToWorld(World world, BlockPos origin, BlockPos regionPos, BlockPos regionSize,
             SchematicPlacement schematicPlacement, SubRegionPlacement placement,
             LitematicaBlockStateContainer container, Map<BlockPos, CompoundTag> tileMap,
-            @Nullable Map<BlockPos, ScheduledTick<Block>> scheduledBlockTicks,
-            @Nullable Map<BlockPos, ScheduledTick<Fluid>> scheduledFluidTicks, boolean notifyNeighbors)
+             Map<BlockPos, ScheduledTick<Block>> scheduledBlockTicks,
+             Map<BlockPos, ScheduledTick<Fluid>> scheduledFluidTicks, boolean notifyNeighbors)
     {
         // These are the untransformed relative positions
         BlockPos posEndRelSub = PositionUtils.getRelativeEndPositionFromAreaSize(regionSize);
@@ -754,7 +754,7 @@ public class LitematicaSchematic
             net.minecraft.util.math.Box bb = PositionUtils.createEnclosingAABB(box.getPos1(), box.getPos2());
             BlockPos regionPosAbs = box.getPos1();
             List<EntityInfo> list = new ArrayList<>();
-            List<Entity> entities = world.getOtherEntities(null, bb, null);
+            List<Entity> entities = world.getEntities((Entity) null, bb, null);
 
             for (Entity entity : entities)
             {
@@ -788,7 +788,7 @@ public class LitematicaSchematic
             }
 
             net.minecraft.util.math.Box bb = PositionUtils.createAABBFrom(entry.getValue());
-            List<Entity> entities = world.getOtherEntities(null, bb, null);
+            List<Entity> entities = world.getEntities((Entity) null, bb, null);
             BlockPos regionPosAbs = box.getPos1();
 
             for (Entity entity : entities)
@@ -1034,7 +1034,7 @@ public class LitematicaSchematic
         }
     }
 
-    @Nullable
+    
     public LitematicaBlockStateContainer getSubRegionContainer(String regionName)
     {
         return this.blockContainers.get(regionName);
@@ -1445,7 +1445,7 @@ public class LitematicaSchematic
         return false;
     }
 
-    @Nullable
+    
     public static LitematicaSchematic createFromFile(File dir, String fileName)
     {
         if (fileName.endsWith(FILE_EXTENSION) == false)

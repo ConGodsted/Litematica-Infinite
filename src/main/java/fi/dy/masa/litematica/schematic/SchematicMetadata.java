@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.schematic;
 
-import javax.annotation.Nullable;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Vec3i;
 import fi.dy.masa.malilib.util.Constants;
@@ -34,7 +34,7 @@ public class SchematicMetadata
         return this.description;
     }
 
-    @Nullable
+    
     public int[] getPreviewImagePixelData()
     {
         return thumbnailPixelData;

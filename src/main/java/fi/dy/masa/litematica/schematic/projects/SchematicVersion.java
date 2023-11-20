@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.schematic.projects;
 
-import javax.annotation.Nullable;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import fi.dy.masa.malilib.util.JsonUtils;
@@ -61,7 +61,7 @@ public class SchematicVersion
         return obj;
     }
 
-    @Nullable
+    
     public static SchematicVersion fromJson(JsonObject obj)
     {
         BlockPos areaOffset = JsonUtils.blockPosFromJson(obj, "area_offset");

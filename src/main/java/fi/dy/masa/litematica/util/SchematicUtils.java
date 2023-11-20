@@ -2,7 +2,7 @@ package fi.dy.masa.litematica.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
@@ -245,7 +245,7 @@ public class SchematicUtils
         return false;
     }
 
-    @Nullable
+    
     private static ReplacementInfo getTargetInfo(MinecraftClient mc)
     {
         ItemStack stack = mc.player.getMainHandStack();
@@ -742,7 +742,7 @@ public class SchematicUtils
         }
     }
 
-    @Nullable
+    
     public static BlockPos getSchematicContainerPositionFromWorldPosition(BlockPos worldPos, LitematicaSchematic schematic, String regionName,
             SchematicPlacement schematicPlacement, SubRegionPlacement regionPlacement, LitematicaBlockStateContainer container)
     {
@@ -774,7 +774,7 @@ public class SchematicUtils
                             MathHelper.clamp(startZ, 0, size.getZ() - 1));
     }
 
-    @Nullable
+    
     private static BlockPos getReverserTransformedWorldPosition(BlockPos worldPos, LitematicaSchematic schematic,
             String regionName, SchematicPlacement schematicPlacement, SubRegionPlacement regionPlacement)
     {

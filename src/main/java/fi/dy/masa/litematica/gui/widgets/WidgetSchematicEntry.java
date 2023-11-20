@@ -3,7 +3,6 @@ package fi.dy.masa.litematica.gui.widgets;
 import java.io.File;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.data.SchematicHolder;
@@ -70,7 +69,7 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
     }
 
     @Override
-    public void render(int mouseX, int mouseY, boolean selected, MatrixStack matrixStack)
+    public void render(int mouseX, int mouseY, boolean selected)
     {
         RenderUtils.color(1f, 1f, 1f, 1f);
 
@@ -90,7 +89,7 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
         }
 
         String schematicName = this.schematic.getMetadata().getName();
-        this.drawString(this.x + 20, this.y + 7, 0xFFFFFFFF, schematicName, matrixStack);
+        this.drawString(this.x + 20, this.y + 7, 0xFFFFFFFF, schematicName);
 
         RenderUtils.color(1f, 1f, 1f, 1f);
         RenderSystem.disableBlend();
@@ -115,11 +114,11 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
 
         icon.renderAt(this.typeIconX, this.typeIconY, this.zLevel, false, false);
 
-        this.drawSubWidgets(mouseX, mouseY, matrixStack);
+        this.drawSubWidgets(mouseX, mouseY);
 
         if (GuiBase.isMouseOver(mouseX, mouseY, this.x, this.y, this.buttonsStartX - 12, this.height))
         {
-            RenderUtils.drawHoverText(mouseX, mouseY, ImmutableList.of(text), matrixStack);
+            RenderUtils.drawHoverText(mouseX, mouseY, ImmutableList.of(text));
         }
 
         RenderUtils.disableDiffuseLighting();

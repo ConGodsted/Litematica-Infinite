@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.gui;
 
-import javax.annotation.Nullable;
+
 import fi.dy.masa.litematica.config.Configs;
 import fi.dy.masa.litematica.config.Hotkeys;
 import fi.dy.masa.litematica.gui.GuiMainMenu.ButtonListenerChangeMenu;
@@ -246,7 +246,7 @@ public class GuiSchematicVerifier   extends GuiListBase<BlockMismatchEntry, Widg
     }
 
     @Override
-    public void onSelectionChange(@Nullable BlockMismatchEntry entry)
+    public void onSelectionChange( BlockMismatchEntry entry)
     {
         if (entry != null)
         {
@@ -291,13 +291,13 @@ public class GuiSchematicVerifier   extends GuiListBase<BlockMismatchEntry, Widg
     public static class BlockMismatchEntry
     {
         public final Type type;
-        @Nullable
+        
         public final MismatchType mismatchType;
-        @Nullable
+        
         public final BlockMismatch blockMismatch;
-        @Nullable
+        
         public final String header1;
-        @Nullable
+        
         public final String header2;
 
         public BlockMismatchEntry(MismatchType mismatchType, String title)

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nullable;
+
 import org.lwjgl.opengl.GL11;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -137,10 +137,8 @@ public class OverlayRenderer
         {
             RenderSystem.pushMatrix();
 
-            fi.dy.masa.malilib.render.RenderUtils.color(1f, 1f, 1f, 1f);
             fi.dy.masa.malilib.render.RenderUtils.setupBlend();
             RenderSystem.enableDepthTest();
-            RenderSystem.disableLighting();
             RenderSystem.depthMask(false);
             RenderSystem.disableTexture();
             RenderSystem.alphaFunc(GL11.GL_GREATER, 0.01F);
@@ -234,7 +232,7 @@ public class OverlayRenderer
     }
 
     public void renderSelectionBox(Box box, BoxType boxType, float expand,
-            float lineWidthBlockBox, float lineWidthArea, @Nullable SchematicPlacement placement, MatrixStack matrices)
+            float lineWidthBlockBox, float lineWidthArea,  SchematicPlacement placement, MatrixStack matrices)
     {
         BlockPos pos1 = box.getPos1();
         BlockPos pos2 = box.getPos2();
@@ -368,7 +366,7 @@ public class OverlayRenderer
         }
     }
 
-    private void renderSchematicMismatches(List<MismatchRenderPos> posList, @Nullable BlockPos lookPos, MatrixStack matrices, float partialTicks)
+    private void renderSchematicMismatches(List<MismatchRenderPos> posList,  BlockPos lookPos, MatrixStack matrices, float partialTicks)
     {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
@@ -450,7 +448,7 @@ public class OverlayRenderer
         RenderSystem.enableDepthTest();
     }
 
-    public void renderHoverInfo(MinecraftClient mc, MatrixStack matrixStack)
+    public void renderHoverInfo(MinecraftClient mc)
     {
         if (mc.world != null && mc.player != null)
         {
@@ -461,7 +459,7 @@ public class OverlayRenderer
                 Configs.InfoOverlays.VERIFIER_OVERLAY_ENABLED.getBooleanValue() &&
                 Configs.InfoOverlays.BLOCK_INFO_OVERLAY_ENABLED.getBooleanValue())
             {
-                verifierOverlayRendered = this.renderVerifierOverlay(mc, matrixStack);
+                verifierOverlayRendered = this.renderVerifierOverlay(mc);
             }
 
             boolean renderBlockInfoLines = Configs.InfoOverlays.BLOCK_INFO_LINES_ENABLED.getBooleanValue();
@@ -479,18 +477,18 @@ public class OverlayRenderer
             {
                 if (renderBlockInfoLines)
                 {
-                    this.renderBlockInfoLines(traceWrapper, mc, matrixStack);
+                    this.renderBlockInfoLines(traceWrapper, mc);
                 }
 
                 if (renderInfoOverlay)
                 {
-                    this.renderBlockInfoOverlay(traceWrapper, mc, matrixStack);
+                    this.renderBlockInfoOverlay(traceWrapper, mc);
                 }
             }
         }
     }
 
-    private void renderBlockInfoLines(RayTraceWrapper traceWrapper, MinecraftClient mc, MatrixStack matrixStack)
+    private void renderBlockInfoLines(RayTraceWrapper traceWrapper, MinecraftClient mc)
     {
         long currentTime = System.currentTimeMillis();
 
@@ -510,10 +508,10 @@ public class OverlayRenderer
         boolean useBackground = true;
         boolean useShadow = false;
 
-        fi.dy.masa.malilib.render.RenderUtils.renderText(x, y, fontScale, textColor, bgColor, alignment, useBackground, useShadow, this.blockInfoLines, matrixStack);
+        fi.dy.masa.malilib.render.RenderUtils.renderText(x, y, fontScale, textColor, bgColor, alignment, useBackground, useShadow, this.blockInfoLines);
     }
 
-    private boolean renderVerifierOverlay(MinecraftClient mc, MatrixStack matrixStack)
+    private boolean renderVerifierOverlay(MinecraftClient mc)
     {
         SchematicPlacement placement = DataManager.getSchematicPlacementManager().getSelectedSchematicPlacement();
 
@@ -530,7 +528,7 @@ public class OverlayRenderer
                 if (mismatch != null)
                 {
                     BlockMismatchInfo info = new BlockMismatchInfo(mismatch.stateExpected, mismatch.stateFound);
-                    info.render(GuiUtils.getScaledWindowWidth() / 2 - info.getTotalWidth() / 2, GuiUtils.getScaledWindowHeight() / 2 + 6, mc, matrixStack);
+                    info.render(GuiUtils.getScaledWindowWidth() / 2 - info.getTotalWidth() / 2, GuiUtils.getScaledWindowHeight() / 2 + 6, mc);
                     return true;
                 }
             }
@@ -539,7 +537,7 @@ public class OverlayRenderer
         return false;
     }
 
-    private void renderBlockInfoOverlay(RayTraceWrapper traceWrapper, MinecraftClient mc, MatrixStack matrixStack)
+    private void renderBlockInfoOverlay(RayTraceWrapper traceWrapper, MinecraftClient mc)
     {
         BlockState air = Blocks.AIR.getDefaultState();
         World worldSchematic = SchematicWorldHandler.getSchematicWorld();
@@ -562,7 +560,7 @@ public class OverlayRenderer
 
             BlockMismatchInfo info = new BlockMismatchInfo(stateSchematic, stateClient);
             this.getOverlayPosition(info.getTotalWidth(), info.getTotalHeight(), offY, invHeight, mc);
-            info.render(this.blockInfoX, this.blockInfoY, mc, matrixStack);
+            info.render(this.blockInfoX, this.blockInfoY, mc);
         }
         else if (traceWrapper.getHitType() == RayTraceWrapper.HitType.VANILLA_BLOCK)
         {
@@ -570,7 +568,7 @@ public class OverlayRenderer
 
             BlockInfo info = new BlockInfo(stateClient, "litematica.gui.label.block_info.state_client");
             this.getOverlayPosition(info.getTotalWidth(), info.getTotalHeight(), offY, invHeight, mc);
-            info.render(this.blockInfoX, this.blockInfoY, mc, matrixStack);
+            info.render(this.blockInfoX, this.blockInfoY, mc);
         }
         else if (traceWrapper.getHitType() == RayTraceWrapper.HitType.SCHEMATIC_BLOCK)
         {
@@ -582,7 +580,7 @@ public class OverlayRenderer
 
                 BlockInfo info = new BlockInfo(stateClient, "litematica.gui.label.block_info.state_client");
                 this.getOverlayPosition(info.getTotalWidth(), info.getTotalHeight(), offY, invHeight, mc);
-                info.render(this.blockInfoX, this.blockInfoY, mc, matrixStack);
+                info.render(this.blockInfoX, this.blockInfoY, mc);
             }
             else
             {
@@ -590,7 +588,7 @@ public class OverlayRenderer
 
                 BlockInfo info = new BlockInfo(stateSchematic, "litematica.gui.label.block_info.state_schematic");
                 this.getOverlayPosition(info.getTotalWidth(), info.getTotalHeight(), offY, invHeight, mc);
-                info.render(this.blockInfoX, this.blockInfoY, mc, matrixStack);
+                info.render(this.blockInfoX, this.blockInfoY, mc);
             }
         }
     }

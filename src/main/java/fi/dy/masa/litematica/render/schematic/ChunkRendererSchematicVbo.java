@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
-import javax.annotation.Nullable;
+
 import org.lwjgl.opengl.GL11;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -451,7 +451,7 @@ public class ChunkRendererSchematicVbo
 
                 for (int i = 0; i < 6; ++i)
                 {
-                    Direction side = fi.dy.masa.malilib.util.PositionUtils.ALL_DIRECTIONS[i];
+                    Direction side = PositionUtils.FACING_ALL[i];
                     posMutable.set(pos.getX() + side.getOffsetX(), pos.getY() + side.getOffsetY(), pos.getZ() + side.getOffsetZ());
                     BlockState adjStateSchematic = this.schematicWorldView.getBlockState(posMutable);
                     BlockState adjStateClient    = this.clientWorldView.getBlockState(posMutable);
@@ -685,7 +685,7 @@ public class ChunkRendererSchematicVbo
         }
     }
 
-    @Nullable
+    
     protected Color4f getOverlayColor(OverlayType overlayType)
     {
         Color4f overlayColor = null;
@@ -803,7 +803,7 @@ public class ChunkRendererSchematicVbo
         return generator;
     }
 
-    @Nullable
+    
     public ChunkRenderTaskSchematic makeCompileTaskTransparencySchematic(Supplier<Vec3d> cameraPosSupplier)
     {
         this.chunkRenderLock.lock();

@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.selection;
 
-import javax.annotation.Nullable;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import fi.dy.masa.litematica.util.PositionUtils;
@@ -11,8 +11,8 @@ import net.minecraft.util.math.BlockPos;
 
 public class Box
 {
-    @Nullable private BlockPos pos1;
-    @Nullable private BlockPos pos2;
+     private BlockPos pos1;
+     private BlockPos pos2;
     private BlockPos size = BlockPos.ORIGIN;
     private String name = "Unnamed";
     private Corner selectedCorner = Corner.NONE;
@@ -24,7 +24,7 @@ public class Box
         this.updateSize();
     }
 
-    public Box(@Nullable BlockPos pos1, @Nullable BlockPos pos2, String name)
+    public Box( BlockPos pos1,  BlockPos pos2, String name)
     {
         this.pos1 = pos1;
         this.pos2 = pos2;
@@ -40,13 +40,13 @@ public class Box
         return box;
     }
 
-    @Nullable
+    
     public BlockPos getPos1()
     {
         return this.pos1;
     }
 
-    @Nullable
+    
     public BlockPos getPos2()
     {
         return this.pos2;
@@ -67,13 +67,13 @@ public class Box
         return this.selectedCorner;
     }
 
-    public void setPos1(@Nullable BlockPos pos)
+    public void setPos1( BlockPos pos)
     {
         this.pos1 = pos;
         this.updateSize();
     }
 
-    public void setPos2(@Nullable BlockPos pos)
+    public void setPos2( BlockPos pos)
     {
         this.pos2 = pos;
         this.updateSize();
@@ -157,7 +157,7 @@ public class Box
         this.setPosition(pos, corner);
     }
 
-    @Nullable
+    
     public static Box fromJson(JsonObject obj)
     {
         if (JsonUtils.hasString(obj, "name"))
@@ -187,7 +187,7 @@ public class Box
         return null;
     }
 
-    @Nullable
+    
     public JsonObject toJson()
     {
         JsonObject obj = new JsonObject();
